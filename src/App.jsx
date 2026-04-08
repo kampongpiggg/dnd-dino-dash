@@ -4,16 +4,20 @@ import { PlayerView } from './pages/PlayerView';
 import { AdminView } from './pages/AdminView';
 
 const HomePage = () => (
-  <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
-    <h1 className="text-4xl font-bold text-white mb-2">DINO-DASH</h1>
-    <p className="text-gray-400 mb-8">Dinosaur Race Tracker</p>
+  <div
+    className="min-h-screen flex flex-col items-center justify-center p-4 bg-cover bg-center bg-no-repeat"
+    style={{ backgroundImage: 'url(https://i.imgur.com/QEdKp1G.png)' }}
+  >
+    <div className="bg-black/60 backdrop-blur-sm rounded-2xl p-8">
+      <h1 className="text-4xl font-bold text-white mb-2 text-center">DINO-DASH</h1>
+      <p className="text-gray-300 mb-8 text-center">Dinosaur Race Tracker</p>
 
-    <div className="space-y-4 w-full max-w-xs">
+      <div className="space-y-4 w-full max-w-xs">
       <Link
         to="/host"
         className="block w-full py-4 text-center text-xl font-bold bg-blue-600 hover:bg-blue-500 rounded-lg text-white transition-colors"
       >
-        Host View (TV)
+        Jumbotron
       </Link>
       <Link
         to="/play"
@@ -27,6 +31,7 @@ const HomePage = () => (
       >
         Admin Panel
       </Link>
+      </div>
     </div>
   </div>
 );
