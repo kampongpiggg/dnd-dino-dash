@@ -27,3 +27,23 @@ body {
 h1, h2, h3, h4, h5, h6, p, span, button, input, label, a {
   font-family: 'Almendra', Georgia, serif;
 }
+
+/* Initiative turn indicator animation */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px var(--chult-gold); }
+  50% { box-shadow: 0 0 15px var(--chult-gold), 0 0 25px var(--chult-gold-light); }
+}
+
+.initiative-active {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Race bar pulse for current turn */
+@keyframes bar-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+
+.bar-active {
+  animation: bar-pulse 1.5s ease-in-out infinite;
+}

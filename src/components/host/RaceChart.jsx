@@ -22,7 +22,7 @@ const getBarOpacity = (status) => {
   return 1;
 };
 
-export const RaceChart = ({ dinosaurs }) => {
+export const RaceChart = ({ dinosaurs, currentTurnDinoId }) => {
   return (
     <ResponsiveContainer width="100%" height={600}>
       <BarChart
@@ -41,7 +41,25 @@ export const RaceChart = ({ dinosaurs }) => {
           type="category"
           dataKey="name"
           width={160}
-          tick={{ fill: '#c9a227', fontSize: 18, fontWeight: 'bold', fontFamily: 'Almendra, Georgia, serif' }}
+          tick={({ x, y, payload }) => {
+            const dino = dinosaurs.find(d => d.name === payload.value);
+            const isCurrentTurn = dino?.id === currentTurnDinoId;
+            return (
+              <text
+                x={x}
+                y={y}
+                dy={4}
+                textAnchor="end"
+                fill={isCurrentTurn ? '#e6c84a' : '#c9a227'}
+                fontSize={18}
+                fontWeight="bold"
+                fontFamily="Almendra, Georgia, serif"
+                className={isCurrentTurn ? 'bar-active' : ''}
+              >
+                {isCurrentTurn ? `▶ ${payload.value}` : payload.value}
+              </text>
+            );
+          }}
           tickLine={false}
           axisLine={false}
         />
@@ -66,13 +84,18 @@ export const RaceChart = ({ dinosaurs }) => {
           animationEasing="ease-in-out"
           radius={[0, 8, 8, 0]}
         >
-          {dinosaurs.map((dino) => (
-            <Cell
-              key={dino.id}
-              fill={getBarColor(dino)}
-              fillOpacity={getBarOpacity(dino.status)}
-            />
-          ))}
+          {dinosaurs.map((dino) => {
+            const isCurrentTurn = dino.id === currentTurnDinoId;
+            return (
+              <Cell
+                key={dino.id}
+                fill={getBarColor(dino)}
+                fillOpacity={getBarOpacity(dino.status)}
+                stroke={isCurrentTurn ? '#c9a227' : 'none'}
+                strokeWidth={isCurrentTurn ? 3 : 0}
+              />
+            );
+          })}
           <LabelList
             dataKey="tally"
             position="right"

@@ -2,8 +2,10 @@ import { useEffect } from 'react';
 import { useDinosaurs } from '../hooks/useDinosaurs';
 import { useWinner } from '../hooks/useWinner';
 import { useGlobalState } from '../hooks/useGlobalState';
+import { useInitiativeOrder } from '../hooks/useInitiativeOrder';
 import { RaceChart } from '../components/host/RaceChart';
 import { WinnerConfetti } from '../components/host/WinnerConfetti';
+import { InitiativeSidebar } from '../components/host/InitiativeSidebar';
 import { StageHeader } from '../components/shared/StageHeader';
 import { checkAndSeedIfEmpty } from '../services/dinosaurService';
 import { checkAndInitializeGlobalState } from '../services/globalStateService';
@@ -11,7 +13,10 @@ import { checkAndInitializeGlobalState } from '../services/globalStateService';
 export const HostView = () => {
   const { dinosaurs, loading, error } = useDinosaurs(true);
   const winner = useWinner(dinosaurs);
-  const { currentStageName, currentStage, isPaused } = useGlobalState();
+  const { currentStageName, currentStage, isPaused, currentTurnIndex } = useGlobalState();
+  const { initiativeOrder, getDinoAtTurnIndex } = useInitiativeOrder(dinosaurs);
+
+  const currentTurnDino = getDinoAtTurnIndex(currentTurnIndex);
 
   useEffect(() => {
     checkAndSeedIfEmpty();
@@ -52,8 +57,16 @@ export const HostView = () => {
         </div>
       </header>
 
-      <main className="flex-1">
-        <RaceChart dinosaurs={dinosaurs} />
+      <main className="flex-1 flex gap-4">
+        <div className="flex-1">
+          <RaceChart dinosaurs={dinosaurs} currentTurnDinoId={currentTurnDino?.id} />
+        </div>
+        <div className="w-64 flex-shrink-0">
+          <InitiativeSidebar
+            initiativeOrder={initiativeOrder}
+            currentTurnIndex={currentTurnIndex}
+          />
+        </div>
       </main>
 
       <WinnerConfetti winner={winner} />
