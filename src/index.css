@@ -61,9 +61,9 @@ h1, h2, h3, h4, h5, h6, p, span, button, input, label, a {
 /* Continuous ticker animation - full content loop */
 @keyframes marquee-continuous {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-75%); }
+  100% { transform: translateX(-50%); }
 }
 
 .ticker-continuous {
-  animation: marquee-continuous 900s linear infinite;
+  animation: marquee-continuous 60s linear infinite;
 }
