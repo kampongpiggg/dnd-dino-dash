@@ -75,7 +75,7 @@ export const HostView = () => {
       </main>
 
       <WinnerConfetti winner={winner} />
-      <MarqueeTicker message={tickerMessage} timestamp={tickerTimestamp} />
+      <MarqueeTicker adminMessage={tickerMessage} adminTimestamp={tickerTimestamp} />
     </div>
   );
 };
