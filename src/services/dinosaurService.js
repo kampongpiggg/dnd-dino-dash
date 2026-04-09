@@ -27,11 +27,27 @@ export const updateRider = async (dinoId, rider) => {
   await update(dinoRef, { rider });
 };
 
-export const resetAll = async () => {
+export const updateInitiative = async (dinoId, initiative) => {
+  const dinoRef = ref(database, `dinosaurs/${dinoId}`);
+  await update(dinoRef, { initiative });
+};
+
+export const clearAllInitiatives = async () => {
+  const updates = {};
+  INITIAL_DINOSAUR_STATE.forEach(dino => {
+    updates[`${dino.id}/initiative`] = null;
+  });
+  await update(dinosaursRef, updates);
+};
+
+export const resetAll = async (resetInitiatives = false) => {
   const updates = {};
   INITIAL_DINOSAUR_STATE.forEach(dino => {
     updates[`${dino.id}/tally`] = 0;
     updates[`${dino.id}/status`] = 'Active';
+    if (resetInitiatives) {
+      updates[`${dino.id}/initiative`] = null;
+    }
   });
   await update(dinosaursRef, updates);
 };

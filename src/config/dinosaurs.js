@@ -15,6 +15,7 @@ export const INITIAL_DINOSAUR_STATE = DINOSAURS.map(dino => ({
   rider: '',
   tally: 0,
   status: 'Active',
+  initiative: null,
 }));
 
 export const FINISH_LINE = 400;
