@@ -113,16 +113,13 @@ export const MarqueeTicker = ({ adminMessage, adminTimestamp }) => {
       }}
     >
       <div className="ticker-continuous h-full flex items-center whitespace-nowrap">
-        {/* First copy */}
-        <div className="flex items-center">
-          {tickerContent}
-        </div>
-        {/* Spacer */}
-        <span className="mx-8" />
-        {/* Second copy for seamless loop */}
-        <div className="flex items-center">
-          {tickerContent}
-        </div>
+        {/* Four copies for seamless 75% scroll loop at 2x speed */}
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} className="flex items-center">
+            {tickerContent}
+            <span className="mx-8" />
+          </div>
+        ))}
       </div>
     </div>
   );
