@@ -27,13 +27,6 @@ const HomePage = () => (
       >
         Riders
       </Link>
-      <Link
-        to="/admin"
-        className="block w-full py-4 text-center text-xl font-bold rounded-lg text-white transition-all hover:brightness-110 border-2"
-        style={{ backgroundColor: 'var(--chult-terracotta)', borderColor: 'var(--chult-gold)' }}
-      >
-        Admin Panel
-      </Link>
       </div>
     </div>
   </div>
