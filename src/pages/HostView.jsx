@@ -1,24 +1,35 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDinosaurs } from '../hooks/useDinosaurs';
 import { useWinner } from '../hooks/useWinner';
 import { useGlobalState } from '../hooks/useGlobalState';
 import { useInitiativeOrder } from '../hooks/useInitiativeOrder';
 import { useLeadChangeDetector } from '../hooks/useLeadChangeDetector';
 import { RaceChart } from '../components/host/RaceChart';
-import { WinnerConfetti } from '../components/host/WinnerConfetti';
+import { WinnerBanner } from '../components/host/WinnerBanner';
 import { InitiativeSidebar } from '../components/host/InitiativeSidebar';
 import { MarqueeTicker } from '../components/host/MarqueeTicker';
 import { StageHeader } from '../components/shared/StageHeader';
 import { InjectCard } from '../components/shared/InjectCard';
-import { getStageInject } from '../config/injectContent';
+import { getStageInject, hasInject } from '../config/injectContent';
 import { checkAndSeedIfEmpty } from '../services/dinosaurService';
-import { checkAndInitializeGlobalState, hideInjectCard } from '../services/globalStateService';
+import { checkAndInitializeGlobalState, hideInjectCard, showInjectCard } from '../services/globalStateService';
 
 export const HostView = () => {
   const { dinosaurs, loading, error } = useDinosaurs(true);
   const winner = useWinner(dinosaurs);
   const { currentStageName, currentStage, isPaused, currentTurnIndex, tickerMessage, tickerTimestamp, tickerSpeed, showInject } = useGlobalState();
   const currentInject = getStageInject(currentStage);
+  const prevStageRef = useRef(currentStage);
+
+  // Auto-show inject card when stage changes
+  useEffect(() => {
+    if (currentStage !== prevStageRef.current) {
+      prevStageRef.current = currentStage;
+      if (hasInject(currentStage)) {
+        showInjectCard();
+      }
+    }
+  }, [currentStage]);
   const { initiativeOrder, getDinoAtTurnIndex } = useInitiativeOrder(dinosaurs);
 
   const currentTurnDino = getDinoAtTurnIndex(currentTurnIndex);
@@ -77,7 +88,7 @@ export const HostView = () => {
         </div>
       </main>
 
-      <WinnerConfetti winner={winner} />
+      <WinnerBanner winner={winner} />
       <MarqueeTicker adminMessage={tickerMessage} adminTimestamp={tickerTimestamp} tickerSpeed={tickerSpeed} />
 
       {/* Stage Event Card */}

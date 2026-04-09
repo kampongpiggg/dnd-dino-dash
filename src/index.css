@@ -77,3 +77,87 @@ h1, h2, h3, h4, h5, h6, p, span, button, input, label, a {
 .ticker-scroll-dynamic {
   animation: marquee-dynamic linear infinite;
 }
+
+/* Winner celebration animations */
+@keyframes winner-pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes winner-glow {
+  0%, 100% { text-shadow: 0 0 20px var(--chult-gold), 0 0 40px var(--chult-gold); }
+  50% { text-shadow: 0 0 40px var(--chult-gold), 0 0 80px var(--chult-gold-light), 0 0 100px var(--chult-amber); }
+}
+
+@keyframes trophy-bounce {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  25% { transform: translateY(-10px) rotate(5deg); }
+  50% { transform: translateY(0) rotate(-5deg); }
+  75% { transform: translateY(-5px) rotate(3deg); }
+}
+
+@keyframes star-spin {
+  0% { transform: rotate(0deg) scale(1); color: var(--chult-gold); }
+  50% { transform: rotate(180deg) scale(1.3); color: var(--chult-gold-light); }
+  100% { transform: rotate(360deg) scale(1); color: var(--chult-gold); }
+}
+
+@keyframes burst {
+  0% { transform: scale(0); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes bg-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.85; }
+}
+
+.winner-banner-pop {
+  animation: winner-pop 0.6s ease-out forwards;
+}
+
+.winner-text-glow {
+  animation: winner-glow 2s ease-in-out infinite;
+}
+
+.winner-trophy-bounce {
+  animation: trophy-bounce 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+.winner-star-spin {
+  color: var(--chult-gold);
+  animation: star-spin 3s linear infinite;
+}
+
+.winner-bg-pulse {
+  animation: bg-pulse 2s ease-in-out infinite;
+}
+
+.winner-burst {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--chult-gold) 0%, transparent 70%);
+  animation: burst 2s ease-out infinite;
+}
+
+.winner-burst-1 {
+  top: 30%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.winner-burst-2 {
+  top: 40%;
+  right: 25%;
+  animation-delay: 0.7s;
+}
+
+.winner-burst-3 {
+  bottom: 35%;
+  left: 50%;
+  animation-delay: 1.4s;
+}
