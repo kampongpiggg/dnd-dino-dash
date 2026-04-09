@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 import { TICKER_CONTENT, TICKER_CATEGORIES, getCategoryLabel } from '../../config/tickerContent';
 
-const SCROLL_SPEED = 200; // pixels per second
+const SCROLL_SPEED = 160; // pixels per second
 
 const getCategoryColor = (category) => {
   switch (category) {
