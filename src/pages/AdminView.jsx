@@ -1,14 +1,19 @@
 import { useEffect } from 'react';
 import { useDinosaurs } from '../hooks/useDinosaurs';
 import { useGlobalState } from '../hooks/useGlobalState';
+import { useInitiativeOrder } from '../hooks/useInitiativeOrder';
 import { ResetButton } from '../components/admin/ResetButton';
 import { StageControls } from '../components/admin/StageControls';
+import { InitiativeControls } from '../components/admin/InitiativeControls';
 import { seedDinosaurs } from '../services/dinosaurService';
 import { checkAndInitializeGlobalState } from '../services/globalStateService';
 
 export const AdminView = () => {
   const { dinosaurs, loading } = useDinosaurs(false);
-  const { currentStage, isPaused, raceStarted, loading: globalLoading } = useGlobalState();
+  const { currentStage, isPaused, raceStarted, currentTurnIndex, loading: globalLoading } = useGlobalState();
+  const { initiativeOrder, getDinoAtTurnIndex } = useInitiativeOrder(dinosaurs);
+
+  const currentTurnDino = getDinoAtTurnIndex(currentTurnIndex);
 
   useEffect(() => {
     checkAndInitializeGlobalState();
@@ -35,6 +40,17 @@ export const AdminView = () => {
             isPaused={isPaused}
             raceStarted={raceStarted}
           />
+        )}
+
+        {!loading && dinosaurs.length > 0 && (
+          <div className="pt-4" style={{ borderTop: '1px solid var(--chult-stone)' }}>
+            <InitiativeControls
+              dinosaurs={dinosaurs}
+              initiativeOrder={initiativeOrder}
+              currentTurnIndex={currentTurnIndex}
+              currentTurnDino={currentTurnDino}
+            />
+          </div>
         )}
 
         <div className="pt-4" style={{ borderTop: '1px solid var(--chult-stone)' }}>

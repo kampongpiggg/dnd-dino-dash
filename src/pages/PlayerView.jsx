@@ -1,19 +1,24 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDinosaurs } from '../hooks/useDinosaurs';
 import { useGlobalState } from '../hooks/useGlobalState';
+import { useInitiativeOrder } from '../hooks/useInitiativeOrder';
 import { DinoSelector } from '../components/player/DinoSelector';
 import { DistanceInput } from '../components/player/DistanceInput';
 import { StatusToggle } from '../components/player/StatusToggle';
 import { RiderInput } from '../components/player/RiderInput';
+import { TurnAlert } from '../components/player/TurnAlert';
 import { StageHeader } from '../components/shared/StageHeader';
 import { updateTally, updateStatus, updateRider, checkAndSeedIfEmpty } from '../services/dinosaurService';
 import { checkAndInitializeGlobalState } from '../services/globalStateService';
 
 export const PlayerView = () => {
   const { dinosaurs, loading, error } = useDinosaurs(false);
-  const { currentStageName, currentStage, isPaused } = useGlobalState();
+  const { currentStageName, currentStage, isPaused, currentTurnIndex } = useGlobalState();
+  const { getDinoAtTurnIndex } = useInitiativeOrder(dinosaurs);
   const [selectedId, setSelectedId] = useState(null);
   const [lastAdded, setLastAdded] = useState(0);
+
+  const currentTurnDino = getDinoAtTurnIndex(currentTurnIndex);
 
   useEffect(() => {
     checkAndSeedIfEmpty();
@@ -116,6 +121,14 @@ export const PlayerView = () => {
           </>
         )}
       </div>
+
+      {selectedDino && (
+        <TurnAlert
+          isYourTurn={currentTurnDino?.id === selectedId}
+          dinoName={selectedDino.name}
+          dinoColor={selectedDino.color}
+        />
+      )}
     </div>
   );
 };
