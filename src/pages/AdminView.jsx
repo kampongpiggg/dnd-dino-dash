@@ -14,41 +14,43 @@ export const AdminView = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 p-4">
+    <div className="min-h-screen p-4" style={{ backgroundColor: 'var(--chult-jungle-dark)' }}>
       <header className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-white">ADMIN PANEL</h1>
-        <p className="text-gray-400">Race Control</p>
+        <h1 className="text-3xl font-bold" style={{ color: 'var(--chult-gold)' }}>ADMIN PANEL</h1>
+        <p style={{ color: 'var(--chult-sand)' }}>Race Control</p>
       </header>
 
       <div className="max-w-md mx-auto space-y-8">
         <ResetButton />
 
-        <div className="border-t border-gray-700 pt-8">
-          <h2 className="text-xl font-bold text-white mb-4">Database Tools</h2>
+        <div className="pt-8" style={{ borderTop: '1px solid var(--chult-stone)' }}>
+          <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--chult-cream)' }}>Database Tools</h2>
           <button
             onClick={handleSeed}
-            className="w-full h-14 text-lg font-bold bg-purple-600 hover:bg-purple-500 rounded-lg text-white transition-colors"
+            className="w-full h-14 text-lg font-bold rounded-lg text-white transition-all hover:brightness-110"
+            style={{ backgroundColor: 'var(--chult-terracotta)' }}
           >
             Seed/Reset Database
           </button>
-          <p className="text-gray-500 text-sm mt-2 text-center">
+          <p className="text-sm mt-2 text-center" style={{ color: 'var(--chult-stone)' }}>
             Use this if the database is empty or corrupted
           </p>
         </div>
 
         {!loading && dinosaurs.length > 0 && (
-          <div className="border-t border-gray-700 pt-8">
-            <h2 className="text-xl font-bold text-white mb-4">Current State</h2>
+          <div className="pt-8" style={{ borderTop: '1px solid var(--chult-stone)' }}>
+            <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--chult-cream)' }}>Current State</h2>
             <div className="space-y-2">
               {dinosaurs.map((dino) => (
                 <div
                   key={dino.id}
-                  className="flex justify-between items-center p-3 rounded-lg bg-gray-800"
+                  className="flex justify-between items-center p-3 rounded-lg"
+                  style={{ backgroundColor: 'var(--chult-jungle)' }}
                 >
                   <span className="font-bold" style={{ color: dino.color }}>
                     {dino.name}
                   </span>
-                  <span className="text-white">
+                  <span style={{ color: 'var(--chult-cream)' }}>
                     {dino.tally}ft · {dino.status}
                   </span>
                 </div>

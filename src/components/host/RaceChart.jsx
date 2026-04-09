@@ -33,29 +33,30 @@ export const RaceChart = ({ dinosaurs }) => {
         <XAxis
           type="number"
           domain={[0, TRACK_MAX]}
-          tick={{ fill: '#fff', fontSize: 16 }}
-          tickLine={{ stroke: '#fff' }}
-          axisLine={{ stroke: '#fff' }}
+          tick={{ fill: '#d4c4a8', fontSize: 16, fontFamily: 'Almendra, Georgia, serif' }}
+          tickLine={{ stroke: '#8b7355' }}
+          axisLine={{ stroke: '#8b7355' }}
         />
         <YAxis
           type="category"
           dataKey="name"
           width={160}
-          tick={{ fill: '#fff', fontSize: 18, fontWeight: 'bold' }}
+          tick={{ fill: '#c9a227', fontSize: 18, fontWeight: 'bold', fontFamily: 'Almendra, Georgia, serif' }}
           tickLine={false}
           axisLine={false}
         />
         <ReferenceLine
           x={FINISH_LINE}
-          stroke="#fff"
+          stroke="#c9a227"
           strokeWidth={4}
           strokeDasharray="5 5"
           label={{
             value: 'FINISH',
             position: 'top',
-            fill: '#fff',
+            fill: '#c9a227',
             fontSize: 20,
             fontWeight: 'bold',
+            fontFamily: 'Almendra, Georgia, serif',
           }}
         />
         <Bar
@@ -75,9 +76,10 @@ export const RaceChart = ({ dinosaurs }) => {
           <LabelList
             dataKey="tally"
             position="right"
-            fill="#fff"
+            fill="#f5e6c8"
             fontSize={16}
             fontWeight="bold"
+            style={{ fontFamily: 'Almendra, Georgia, serif' }}
             formatter={(value) => `${value}ft`}
           />
         </Bar>

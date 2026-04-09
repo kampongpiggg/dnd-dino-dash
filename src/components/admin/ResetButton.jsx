@@ -30,7 +30,7 @@ export const ResetButton = () => {
   return (
     <div className="space-y-4">
       {confirming && (
-        <p className="text-yellow-400 text-xl text-center font-bold">
+        <p className="text-xl text-center font-bold" style={{ color: 'var(--chult-gold)' }}>
           Are you sure? This will reset ALL dinosaurs!
         </p>
       )}
@@ -38,18 +38,16 @@ export const ResetButton = () => {
         <button
           onClick={handleReset}
           disabled={resetting}
-          className={`flex-1 h-20 text-2xl font-bold rounded-lg text-white transition-colors ${
-            confirming
-              ? 'bg-red-600 hover:bg-red-500'
-              : 'bg-orange-600 hover:bg-orange-500'
-          } disabled:opacity-50`}
+          className="flex-1 h-20 text-2xl font-bold rounded-lg text-white transition-all hover:brightness-110 disabled:opacity-50"
+          style={{ backgroundColor: confirming ? 'var(--chult-terracotta)' : 'var(--chult-amber)' }}
         >
           {resetting ? 'Resetting...' : confirming ? 'YES, RESET ALL' : 'Reset Race'}
         </button>
         {confirming && (
           <button
             onClick={handleCancel}
-            className="flex-1 h-20 text-2xl font-bold bg-gray-600 hover:bg-gray-500 rounded-lg text-white transition-colors"
+            className="flex-1 h-20 text-2xl font-bold rounded-lg text-white transition-all hover:brightness-110"
+            style={{ backgroundColor: 'var(--chult-stone-dark)' }}
           >
             Cancel
           </button>

@@ -41,28 +41,28 @@ export const PlayerView = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-white text-2xl">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--chult-jungle-dark)' }}>
+        <div className="text-2xl" style={{ color: 'var(--chult-gold)' }}>Loading...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-        <div className="text-red-500 text-xl text-center">
+      <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: 'var(--chult-jungle-dark)' }}>
+        <div className="text-xl text-center" style={{ color: 'var(--chult-terracotta)' }}>
           <p>Connection error</p>
-          <p className="text-base mt-2">Check your internet connection.</p>
+          <p className="text-base mt-2" style={{ color: 'var(--chult-sand)' }}>Check your internet connection.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 p-4">
+    <div className="min-h-screen p-4" style={{ backgroundColor: 'var(--chult-jungle-dark)' }}>
       <header className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-white">DINO-DASH</h1>
-        <p className="text-gray-400">Select your dinosaur</p>
+        <h1 className="text-2xl font-bold" style={{ color: 'var(--chult-gold)' }}>DINO-DASH</h1>
+        <p style={{ color: 'var(--chult-sand)' }}>Select your dinosaur</p>
       </header>
 
       <div className="max-w-md mx-auto space-y-6">

@@ -15,30 +15,30 @@ export const HostView = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-white text-3xl">Loading race data...</div>
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--chult-jungle-dark)' }}>
+        <div className="text-3xl" style={{ color: 'var(--chult-gold)' }}>Loading race data...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-red-500 text-2xl text-center p-8">
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--chult-jungle-dark)' }}>
+        <div className="text-2xl text-center p-8" style={{ color: 'var(--chult-terracotta)' }}>
           <p>Failed to connect to Firebase</p>
-          <p className="text-lg mt-4">Make sure your .env file is configured correctly.</p>
+          <p className="text-lg mt-4" style={{ color: 'var(--chult-sand)' }}>Make sure your .env file is configured correctly.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 p-4 flex flex-col">
+    <div className="min-h-screen p-4 flex flex-col" style={{ backgroundColor: 'var(--chult-jungle-dark)' }}>
       <header className="text-center mb-4">
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="text-4xl font-bold" style={{ color: 'var(--chult-gold)' }}>
           DINO-DASH LIVE TRACKER
         </h1>
-        <p className="text-gray-400 text-lg">Dinosaur Race</p>
+        <p className="text-lg" style={{ color: 'var(--chult-sand)' }}>Port Nyanzaru Dinosaur Race</p>
       </header>
 
       <main className="flex-1">

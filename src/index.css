@@ -1,6 +1,29 @@
 @import "tailwindcss";
 
+/* Tomb of Annihilation / Chult / Port Nyanzaru Color Palette */
+:root {
+  --chult-jungle-dark: #1a2e1a;
+  --chult-jungle: #2d4a2d;
+  --chult-jungle-light: #3d6b3d;
+  --chult-gold: #c9a227;
+  --chult-gold-light: #e6c84a;
+  --chult-amber: #d4942a;
+  --chult-terracotta: #b8542a;
+  --chult-teal: #2a7a7a;
+  --chult-teal-dark: #1e5555;
+  --chult-stone: #8b7355;
+  --chult-stone-dark: #5c4d3d;
+  --chult-sand: #d4c4a8;
+  --chult-cream: #f5e6c8;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
+  font-family: 'Almendra', Georgia, serif;
+}
+
+/* Override Tailwind's default sans font */
+h1, h2, h3, h4, h5, h6, p, span, button, input, label, a {
+  font-family: 'Almendra', Georgia, serif;
 }

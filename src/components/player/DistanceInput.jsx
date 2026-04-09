@@ -18,8 +18,8 @@ export const DistanceInput = ({ currentTally, onAdd, onUndo, disabled }) => {
   return (
     <div className="space-y-4">
       <div className="text-center">
-        <span className="text-gray-400 text-lg">Current Distance:</span>
-        <span className="text-4xl font-bold text-white ml-3">{currentTally} ft</span>
+        <span className="text-lg" style={{ color: 'var(--chult-sand)' }}>Current Distance:</span>
+        <span className="text-4xl font-bold ml-3" style={{ color: 'var(--chult-gold)' }}>{currentTally} ft</span>
       </div>
 
       <input
@@ -29,21 +29,28 @@ export const DistanceInput = ({ currentTally, onAdd, onUndo, disabled }) => {
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Enter feet moved"
         disabled={disabled}
-        className="w-full h-16 text-2xl text-center bg-gray-800 border-2 border-gray-600 rounded-lg text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none disabled:opacity-50"
+        className="w-full h-16 text-2xl text-center border-2 rounded-lg focus:outline-none disabled:opacity-50"
+        style={{
+          backgroundColor: 'var(--chult-jungle)',
+          borderColor: 'var(--chult-stone)',
+          color: 'var(--chult-cream)',
+        }}
       />
 
       <div className="grid grid-cols-2 gap-4">
         <button
           onClick={handleAdd}
           disabled={disabled || !inputValue}
-          className="h-16 text-xl font-bold bg-green-600 hover:bg-green-500 disabled:bg-gray-700 disabled:opacity-50 rounded-lg text-white transition-colors"
+          className="h-16 text-xl font-bold disabled:opacity-50 rounded-lg text-white transition-all hover:brightness-110"
+          style={{ backgroundColor: 'var(--chult-teal)' }}
         >
           + Add Distance
         </button>
         <button
           onClick={handleUndo}
           disabled={disabled}
-          className="h-16 text-xl font-bold bg-red-600 hover:bg-red-500 disabled:bg-gray-700 disabled:opacity-50 rounded-lg text-white transition-colors"
+          className="h-16 text-xl font-bold disabled:opacity-50 rounded-lg text-white transition-all hover:brightness-110"
+          style={{ backgroundColor: 'var(--chult-terracotta)' }}
         >
           Undo
         </button>
