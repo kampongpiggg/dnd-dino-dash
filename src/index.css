@@ -47,3 +47,13 @@ h1, h2, h3, h4, h5, h6, p, span, button, input, label, a {
 .bar-active {
   animation: bar-pulse 1.5s ease-in-out infinite;
 }
+
+/* Marquee ticker animation */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
+}
+
+.ticker-scroll {
+  animation: marquee-scroll 12s linear infinite;
+}

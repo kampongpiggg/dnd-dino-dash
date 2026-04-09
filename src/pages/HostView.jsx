@@ -6,6 +6,7 @@ import { useInitiativeOrder } from '../hooks/useInitiativeOrder';
 import { RaceChart } from '../components/host/RaceChart';
 import { WinnerConfetti } from '../components/host/WinnerConfetti';
 import { InitiativeSidebar } from '../components/host/InitiativeSidebar';
+import { MarqueeTicker } from '../components/host/MarqueeTicker';
 import { StageHeader } from '../components/shared/StageHeader';
 import { checkAndSeedIfEmpty } from '../services/dinosaurService';
 import { checkAndInitializeGlobalState } from '../services/globalStateService';
@@ -13,7 +14,7 @@ import { checkAndInitializeGlobalState } from '../services/globalStateService';
 export const HostView = () => {
   const { dinosaurs, loading, error } = useDinosaurs(true);
   const winner = useWinner(dinosaurs);
-  const { currentStageName, currentStage, isPaused, currentTurnIndex } = useGlobalState();
+  const { currentStageName, currentStage, isPaused, currentTurnIndex, tickerMessage, tickerTimestamp } = useGlobalState();
   const { initiativeOrder, getDinoAtTurnIndex } = useInitiativeOrder(dinosaurs);
 
   const currentTurnDino = getDinoAtTurnIndex(currentTurnIndex);
@@ -43,7 +44,7 @@ export const HostView = () => {
   }
 
   return (
-    <div className="min-h-screen p-4 flex flex-col" style={{ backgroundColor: 'var(--chult-jungle-dark)' }}>
+    <div className="min-h-screen p-4 pb-16 flex flex-col" style={{ backgroundColor: 'var(--chult-jungle-dark)' }}>
       <header className="text-center mb-4">
         <h1 className="text-4xl font-bold" style={{ color: 'var(--chult-gold)' }}>
           DINO-DASH LIVE TRACKER
@@ -70,6 +71,7 @@ export const HostView = () => {
       </main>
 
       <WinnerConfetti winner={winner} />
+      <MarqueeTicker message={tickerMessage} timestamp={tickerTimestamp} />
     </div>
   );
 };
