@@ -1,5 +1,7 @@
-import { useMemo, useState, useEffect, useRef } from 'react';
+import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 import { TICKER_CONTENT, TICKER_CATEGORIES, getCategoryLabel } from '../../config/tickerContent';
+
+const SCROLL_SPEED = 100; // pixels per second
 
 const getCategoryColor = (category) => {
   switch (category) {
@@ -104,6 +106,19 @@ export const MarqueeTicker = ({ adminMessage, adminTimestamp }) => {
     return items;
   }, [adminMessages]);
 
+  const contentRef = useRef(null);
+  const [contentWidth, setContentWidth] = useState(0);
+
+  // Measure actual content width
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentWidth(contentRef.current.offsetWidth);
+    }
+  }, [tickerContent]);
+
+  // Calculate duration: width / speed
+  const animationDuration = contentWidth > 0 ? contentWidth / SCROLL_SPEED : 60;
+
   return (
     <div
       className="fixed bottom-0 left-0 right-0 h-14 overflow-hidden"
@@ -112,13 +127,20 @@ export const MarqueeTicker = ({ adminMessage, adminTimestamp }) => {
         borderTop: '2px solid var(--chult-gold)',
       }}
     >
-      <div className="ticker-continuous h-full flex items-center whitespace-nowrap">
-        {/* Two copies for seamless loop */}
-        <div className="flex items-center">
+      <div
+        className="h-full flex items-center whitespace-nowrap ticker-scroll-dynamic"
+        style={{
+          '--scroll-distance': `-${contentWidth}px`,
+          animationDuration: `${animationDuration}s`,
+        }}
+      >
+        {/* First copy - used for width measurement */}
+        <div ref={contentRef} className="flex items-center flex-shrink-0">
           {tickerContent}
           <span className="mx-8" />
         </div>
-        <div className="flex items-center">
+        {/* Second copy for seamless loop */}
+        <div className="flex items-center flex-shrink-0">
           {tickerContent}
           <span className="mx-8" />
         </div>

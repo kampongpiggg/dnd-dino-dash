@@ -67,3 +67,13 @@ h1, h2, h3, h4, h5, h6, p, span, button, input, label, a {
 .ticker-continuous {
   animation: marquee-continuous 60s linear infinite;
 }
+
+/* Dynamic ticker using CSS variable for exact pixel scroll */
+@keyframes marquee-dynamic {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(var(--scroll-distance, -50%)); }
+}
+
+.ticker-scroll-dynamic {
+  animation: marquee-dynamic linear infinite;
+}
