@@ -3,6 +3,7 @@ import { useDinosaurs } from '../hooks/useDinosaurs';
 import { useWinner } from '../hooks/useWinner';
 import { useGlobalState } from '../hooks/useGlobalState';
 import { useInitiativeOrder } from '../hooks/useInitiativeOrder';
+import { useLeadChangeDetector } from '../hooks/useLeadChangeDetector';
 import { RaceChart } from '../components/host/RaceChart';
 import { WinnerConfetti } from '../components/host/WinnerConfetti';
 import { InitiativeSidebar } from '../components/host/InitiativeSidebar';
@@ -18,6 +19,9 @@ export const HostView = () => {
   const { initiativeOrder, getDinoAtTurnIndex } = useInitiativeOrder(dinosaurs);
 
   const currentTurnDino = getDinoAtTurnIndex(currentTurnIndex);
+
+  // Auto-detect and broadcast lead changes
+  useLeadChangeDetector(dinosaurs, true);
 
   useEffect(() => {
     checkAndSeedIfEmpty();
