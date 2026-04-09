@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
 import { useDinosaurs } from '../hooks/useDinosaurs';
 import { useWinner } from '../hooks/useWinner';
+import { useGlobalState } from '../hooks/useGlobalState';
 import { RaceChart } from '../components/host/RaceChart';
 import { WinnerConfetti } from '../components/host/WinnerConfetti';
+import { StageHeader } from '../components/shared/StageHeader';
 import { checkAndSeedIfEmpty } from '../services/dinosaurService';
+import { checkAndInitializeGlobalState } from '../services/globalStateService';
 
 export const HostView = () => {
   const { dinosaurs, loading, error } = useDinosaurs(true);
   const winner = useWinner(dinosaurs);
+  const { currentStageName, currentStage, isPaused } = useGlobalState();
 
   useEffect(() => {
     checkAndSeedIfEmpty();
+    checkAndInitializeGlobalState();
   }, []);
 
   if (loading) {
@@ -38,7 +43,13 @@ export const HostView = () => {
         <h1 className="text-4xl font-bold" style={{ color: 'var(--chult-gold)' }}>
           DINO-DASH LIVE TRACKER
         </h1>
-        <p className="text-lg" style={{ color: 'var(--chult-sand)' }}>Port Nyanzaru Dinosaur Race</p>
+        <div className="mt-2">
+          <StageHeader
+            stageName={currentStageName}
+            stageNumber={currentStage}
+            isPaused={isPaused}
+          />
+        </div>
       </header>
 
       <main className="flex-1">

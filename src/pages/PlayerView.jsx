@@ -1,18 +1,23 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDinosaurs } from '../hooks/useDinosaurs';
+import { useGlobalState } from '../hooks/useGlobalState';
 import { DinoSelector } from '../components/player/DinoSelector';
 import { DistanceInput } from '../components/player/DistanceInput';
 import { StatusToggle } from '../components/player/StatusToggle';
 import { RiderInput } from '../components/player/RiderInput';
+import { StageHeader } from '../components/shared/StageHeader';
 import { updateTally, updateStatus, updateRider, checkAndSeedIfEmpty } from '../services/dinosaurService';
+import { checkAndInitializeGlobalState } from '../services/globalStateService';
 
 export const PlayerView = () => {
   const { dinosaurs, loading, error } = useDinosaurs(false);
+  const { currentStageName, currentStage, isPaused } = useGlobalState();
   const [selectedId, setSelectedId] = useState(null);
   const [lastAdded, setLastAdded] = useState(0);
 
   useEffect(() => {
     checkAndSeedIfEmpty();
+    checkAndInitializeGlobalState();
   }, []);
 
   const selectedDino = dinosaurs.find((d) => d.id === selectedId);
@@ -62,6 +67,13 @@ export const PlayerView = () => {
     <div className="min-h-screen p-4" style={{ backgroundColor: 'var(--chult-jungle-dark)' }}>
       <header className="text-center mb-6">
         <h1 className="text-2xl font-bold" style={{ color: 'var(--chult-gold)' }}>DINO-DASH</h1>
+        <div className="mt-2 mb-2">
+          <StageHeader
+            stageName={currentStageName}
+            stageNumber={currentStage}
+            isPaused={isPaused}
+          />
+        </div>
         <p style={{ color: 'var(--chult-sand)' }}>Select your dinosaur</p>
       </header>
 
