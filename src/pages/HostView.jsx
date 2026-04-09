@@ -9,13 +9,16 @@ import { WinnerConfetti } from '../components/host/WinnerConfetti';
 import { InitiativeSidebar } from '../components/host/InitiativeSidebar';
 import { MarqueeTicker } from '../components/host/MarqueeTicker';
 import { StageHeader } from '../components/shared/StageHeader';
+import { InjectCard } from '../components/shared/InjectCard';
+import { getStageInject } from '../config/injectContent';
 import { checkAndSeedIfEmpty } from '../services/dinosaurService';
-import { checkAndInitializeGlobalState } from '../services/globalStateService';
+import { checkAndInitializeGlobalState, hideInjectCard } from '../services/globalStateService';
 
 export const HostView = () => {
   const { dinosaurs, loading, error } = useDinosaurs(true);
   const winner = useWinner(dinosaurs);
-  const { currentStageName, currentStage, isPaused, currentTurnIndex, tickerMessage, tickerTimestamp } = useGlobalState();
+  const { currentStageName, currentStage, isPaused, currentTurnIndex, tickerMessage, tickerTimestamp, tickerSpeed, showInject } = useGlobalState();
+  const currentInject = getStageInject(currentStage);
   const { initiativeOrder, getDinoAtTurnIndex } = useInitiativeOrder(dinosaurs);
 
   const currentTurnDino = getDinoAtTurnIndex(currentTurnIndex);
@@ -75,7 +78,19 @@ export const HostView = () => {
       </main>
 
       <WinnerConfetti winner={winner} />
-      <MarqueeTicker adminMessage={tickerMessage} adminTimestamp={tickerTimestamp} />
+      <MarqueeTicker adminMessage={tickerMessage} adminTimestamp={tickerTimestamp} tickerSpeed={tickerSpeed} />
+
+      {/* Stage Event Card */}
+      {showInject && currentInject && (
+        <InjectCard
+          cardType={currentInject.cardType}
+          title={currentInject.title}
+          challenge={currentInject.challenge}
+          successText={currentInject.successText}
+          description={currentInject.description}
+          onDismiss={hideInjectCard}
+        />
+      )}
     </div>
   );
 };

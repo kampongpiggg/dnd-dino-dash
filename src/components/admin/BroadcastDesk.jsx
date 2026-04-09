@@ -1,18 +1,25 @@
 import { useState } from 'react';
-import { sendTickerMessage, clearTicker } from '../../services/globalStateService';
+import { sendTickerMessage, clearTicker, setTickerSpeed } from '../../services/globalStateService';
 
 const PRESET_MESSAGES = [
   { label: 'Lead Change', message: 'LEAD CHANGE! The race heats up!' },
-  { label: 'Photo Finish', message: 'PHOTO FINISH incoming!' },
   { label: 'Sabotage', message: 'SABOTAGE! Foul play on the track!' },
   { label: 'Berserk', message: 'BERSERK! A dinosaur has gone out of control!' },
   { label: 'Crowd Roar', message: 'The crowd goes WILD!' },
-  { label: 'Tej Ad', message: 'Cold Tej at the Thundering Lizard! Refreshment for champions!' },
-  { label: 'Ytepka', message: 'The Ytepka Society reminds you: No gambling... without a permit.' },
 ];
 
-export const BroadcastDesk = ({ currentMessage }) => {
+const SPEED_PRESETS = [
+  { label: 'Slow', value: 80 },
+  { label: 'Normal', value: 160 },
+  { label: 'Fast', value: 280 },
+];
+
+export const BroadcastDesk = ({ currentMessage, tickerSpeed = 160 }) => {
   const [inputValue, setInputValue] = useState('');
+
+  const handleSpeedChange = async (speed) => {
+    await setTickerSpeed(speed);
+  };
 
   const handleBroadcast = async () => {
     if (inputValue.trim()) {
@@ -110,6 +117,32 @@ export const BroadcastDesk = ({ currentMessage }) => {
             </button>
           ))}
         </div>
+      </div>
+
+      {/* Ticker Speed */}
+      <div className="space-y-2">
+        <span className="text-sm" style={{ color: 'var(--chult-sand)' }}>
+          Scroll Speed
+        </span>
+        <div className="grid grid-cols-3 gap-2">
+          {SPEED_PRESETS.map((preset) => (
+            <button
+              key={preset.label}
+              onClick={() => handleSpeedChange(preset.value)}
+              className="px-3 py-2 text-sm font-bold rounded text-white transition-all hover:brightness-110"
+              style={{
+                backgroundColor: tickerSpeed === preset.value
+                  ? 'var(--chult-teal)'
+                  : 'var(--chult-stone-dark)',
+              }}
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-center" style={{ color: 'var(--chult-stone)' }}>
+          {tickerSpeed} px/sec
+        </p>
       </div>
     </div>
   );

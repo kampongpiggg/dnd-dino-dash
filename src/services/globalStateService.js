@@ -11,6 +11,8 @@ const DEFAULT_STATE = {
   currentTurnIndex: 0,
   tickerMessage: '',
   tickerTimestamp: 0,
+  showInject: false,
+  tickerSpeed: 160,
 };
 
 export const initializeGlobalState = async () => {
@@ -100,6 +102,31 @@ export const clearTicker = async () => {
     tickerMessage: '',
     tickerTimestamp: 0,
   });
+};
+
+// Inject Card Management
+export const showInjectCard = async () => {
+  const stateRef = ref(database, GLOBAL_STATE_REF);
+  await update(stateRef, { showInject: true });
+};
+
+export const hideInjectCard = async () => {
+  const stateRef = ref(database, GLOBAL_STATE_REF);
+  await update(stateRef, { showInject: false });
+};
+
+export const toggleInjectCard = async () => {
+  const state = await getGlobalState();
+  if (state) {
+    const stateRef = ref(database, GLOBAL_STATE_REF);
+    await update(stateRef, { showInject: !state.showInject });
+  }
+};
+
+// Ticker Speed Management
+export const setTickerSpeed = async (speed) => {
+  const stateRef = ref(database, GLOBAL_STATE_REF);
+  await update(stateRef, { tickerSpeed: speed });
 };
 
 // Reset all global state

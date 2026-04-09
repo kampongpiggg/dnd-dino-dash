@@ -44,6 +44,8 @@ export const useGlobalState = () => {
     currentTurnIndex: globalState?.currentTurnIndex ?? 0,
     tickerMessage: globalState?.tickerMessage ?? '',
     tickerTimestamp: globalState?.tickerTimestamp ?? 0,
+    showInject: globalState?.showInject ?? false,
+    tickerSpeed: globalState?.tickerSpeed ?? 160,
     loading,
     error,
   };

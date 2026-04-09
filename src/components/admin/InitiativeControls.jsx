@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { updateInitiative, clearAllInitiatives } from '../../services/dinosaurService';
+import { updateInitiative, clearAllInitiatives, updateStatus } from '../../services/dinosaurService';
 import { nextTurn, resetTurn } from '../../services/globalStateService';
 
 export const InitiativeControls = ({
@@ -33,6 +33,13 @@ export const InitiativeControls = ({
     if (confirm('Clear all initiative values?')) {
       await clearAllInitiatives();
       await resetTurn();
+    }
+  };
+
+  const handleRemoveDino = async (dinoId, dinoName) => {
+    if (confirm(`Remove ${dinoName} from the race?`)) {
+      await updateStatus(dinoId, 'Out');
+      await updateInitiative(dinoId, null);
     }
   };
 
@@ -175,6 +182,16 @@ export const InitiativeControls = ({
                   }}
                 >
                   {dino.initiative !== null ? dino.initiative : '—'}
+                </button>
+              )}
+              {dino.status !== 'Out' && (
+                <button
+                  onClick={() => handleRemoveDino(dino.id, dino.name)}
+                  className="w-8 h-8 text-center font-bold rounded transition-all hover:brightness-110 text-white text-sm"
+                  style={{ backgroundColor: 'var(--chult-terracotta)' }}
+                  title={`Remove ${dino.name}`}
+                >
+                  ✕
                 </button>
               )}
             </div>

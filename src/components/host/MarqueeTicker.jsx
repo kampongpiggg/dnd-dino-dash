@@ -1,7 +1,7 @@
-import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { TICKER_CONTENT, TICKER_CATEGORIES, getCategoryLabel } from '../../config/tickerContent';
 
-const SCROLL_SPEED = 160; // pixels per second
+const DEFAULT_SCROLL_SPEED = 160; // pixels per second
 
 const getCategoryColor = (category) => {
   switch (category) {
@@ -37,7 +37,7 @@ const Separator = () => (
   </span>
 );
 
-export const MarqueeTicker = ({ adminMessage, adminTimestamp }) => {
+export const MarqueeTicker = ({ adminMessage, adminTimestamp, tickerSpeed = DEFAULT_SCROLL_SPEED }) => {
   const [adminMessages, setAdminMessages] = useState([]);
   const lastTimestampRef = useRef(0);
 
@@ -117,7 +117,8 @@ export const MarqueeTicker = ({ adminMessage, adminTimestamp }) => {
   }, [tickerContent]);
 
   // Calculate duration: width / speed
-  const animationDuration = contentWidth > 0 ? contentWidth / SCROLL_SPEED : 60;
+  const scrollSpeed = tickerSpeed > 0 ? tickerSpeed : DEFAULT_SCROLL_SPEED;
+  const animationDuration = contentWidth > 0 ? contentWidth / scrollSpeed : 60;
 
   return (
     <div
