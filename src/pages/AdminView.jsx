@@ -5,12 +5,13 @@ import { useInitiativeOrder } from '../hooks/useInitiativeOrder';
 import { ResetButton } from '../components/admin/ResetButton';
 import { StageControls } from '../components/admin/StageControls';
 import { InitiativeControls } from '../components/admin/InitiativeControls';
+import { BroadcastDesk } from '../components/admin/BroadcastDesk';
 import { seedDinosaurs } from '../services/dinosaurService';
 import { checkAndInitializeGlobalState } from '../services/globalStateService';
 
 export const AdminView = () => {
   const { dinosaurs, loading } = useDinosaurs(false);
-  const { currentStage, isPaused, raceStarted, currentTurnIndex, loading: globalLoading } = useGlobalState();
+  const { currentStage, isPaused, raceStarted, currentTurnIndex, tickerMessage, loading: globalLoading } = useGlobalState();
   const { initiativeOrder, getDinoAtTurnIndex } = useInitiativeOrder(dinosaurs);
 
   const currentTurnDino = getDinoAtTurnIndex(currentTurnIndex);
@@ -52,6 +53,10 @@ export const AdminView = () => {
             />
           </div>
         )}
+
+        <div className="pt-4" style={{ borderTop: '1px solid var(--chult-stone)' }}>
+          <BroadcastDesk currentMessage={tickerMessage} />
+        </div>
 
         <div className="pt-4" style={{ borderTop: '1px solid var(--chult-stone)' }}>
           <ResetButton />
