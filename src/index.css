@@ -48,7 +48,7 @@ h1, h2, h3, h4, h5, h6, p, span, button, input, label, a {
   animation: bar-pulse 1.5s ease-in-out infinite;
 }
 
-/* Marquee ticker animation */
+/* Marquee ticker animation - single message */
 @keyframes marquee-scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-33.33%); }
@@ -56,4 +56,14 @@ h1, h2, h3, h4, h5, h6, p, span, button, input, label, a {
 
 .ticker-scroll {
   animation: marquee-scroll 12s linear infinite;
+}
+
+/* Continuous ticker animation - full content loop */
+@keyframes marquee-continuous {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-continuous {
+  animation: marquee-continuous 120s linear infinite;
 }
