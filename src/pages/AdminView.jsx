@@ -1,10 +1,18 @@
 import { useEffect } from 'react';
 import { useDinosaurs } from '../hooks/useDinosaurs';
+import { useGlobalState } from '../hooks/useGlobalState';
 import { ResetButton } from '../components/admin/ResetButton';
+import { StageControls } from '../components/admin/StageControls';
 import { seedDinosaurs } from '../services/dinosaurService';
+import { checkAndInitializeGlobalState } from '../services/globalStateService';
 
 export const AdminView = () => {
   const { dinosaurs, loading } = useDinosaurs(false);
+  const { currentStage, isPaused, raceStarted, loading: globalLoading } = useGlobalState();
+
+  useEffect(() => {
+    checkAndInitializeGlobalState();
+  }, []);
 
   const handleSeed = async () => {
     if (confirm('This will overwrite all dinosaur data. Continue?')) {
@@ -21,7 +29,17 @@ export const AdminView = () => {
       </header>
 
       <div className="max-w-md mx-auto space-y-8">
-        <ResetButton />
+        {!globalLoading && (
+          <StageControls
+            currentStage={currentStage}
+            isPaused={isPaused}
+            raceStarted={raceStarted}
+          />
+        )}
+
+        <div className="pt-4" style={{ borderTop: '1px solid var(--chult-stone)' }}>
+          <ResetButton />
+        </div>
 
         <div className="pt-8" style={{ borderTop: '1px solid var(--chult-stone)' }}>
           <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--chult-cream)' }}>Database Tools</h2>
