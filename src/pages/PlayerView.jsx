@@ -98,7 +98,17 @@ export const PlayerView = () => {
             {/* Only show the rest once rider name is entered */}
             {selectedDino.rider && (
               <>
-                {/* Cheatsheet - shows dino stats */}
+                {/* 1. Dinosaur Name */}
+                <div
+                  className="p-4 rounded-lg text-center"
+                  style={{ backgroundColor: selectedDino.color }}
+                >
+                  <h2 className="text-2xl font-bold drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                    {selectedDino.name}
+                  </h2>
+                </div>
+
+                {/* 2. Stats Cheatsheet */}
                 {(() => {
                   const dinoConfig = DINOSAURS.find(d => d.id === selectedDino.id);
                   return dinoConfig && (
@@ -129,15 +139,52 @@ export const PlayerView = () => {
                   );
                 })()}
 
+                {/* 3. Bonus Actions Cheatsheet */}
                 <div
-                  className="p-4 rounded-lg text-center"
-                  style={{ backgroundColor: selectedDino.color }}
+                  className="p-3 rounded-lg border-2"
+                  style={{
+                    backgroundColor: 'var(--chult-jungle)',
+                    borderColor: 'var(--chult-amber)',
+                  }}
                 >
-                  <h2 className="text-2xl font-bold drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                    {selectedDino.name}
-                  </h2>
+                  <h3 className="text-lg font-bold mb-3 text-center" style={{ color: 'var(--chult-gold)' }}>
+                    Bonus Actions
+                  </h3>
+                  <div className="space-y-3 text-sm" style={{ color: 'var(--chult-cream)' }}>
+                    <div>
+                      <div className="font-bold" style={{ color: 'var(--chult-gold)' }}>Knock a Rider Off</div>
+                      <div style={{ color: 'var(--chult-sand)' }}>
+                        Opposed Strength (Athletics) Check. Loser makes a DC 15 Saving Throw to stay on, or is knocked to the ground.
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold" style={{ color: 'var(--chult-gold)' }}>Lash the Dinosaur</div>
+                      <div style={{ color: 'var(--chult-sand)' }}>
+                        Move at higher speed. Animal Handling with Advantage. On fail, dino makes DC 10 Con check or speed halved. Fail by 5+ = berserk.
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold" style={{ color: 'var(--chult-gold)' }}>Attack another Dinosaur</div>
+                      <div style={{ color: 'var(--chult-sand)' }}>
+                        Urge your dinosaur to attack another dinosaur.
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold" style={{ color: 'var(--chult-gold)' }}>Attack another Rider</div>
+                      <div style={{ color: 'var(--chult-sand)' }}>
+                        Use any of your Bonus Actions to attack another rider.
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="mt-3 pt-3 text-center text-sm italic"
+                    style={{ borderTop: '1px solid var(--chult-stone)', color: 'var(--chult-teal)' }}
+                  >
+                    Be creative and cinematic!
+                  </div>
                 </div>
 
+                {/* 4. Current Distance */}
                 <DistanceInput
                   currentTally={selectedDino.tally}
                   onAdd={handleAddDistance}
