@@ -4,11 +4,11 @@ import { useGlobalState } from '../hooks/useGlobalState';
 import { useInitiativeOrder } from '../hooks/useInitiativeOrder';
 import { DinoSelector } from '../components/player/DinoSelector';
 import { DistanceInput } from '../components/player/DistanceInput';
-import { StatusToggle } from '../components/player/StatusToggle';
 import { RiderInput } from '../components/player/RiderInput';
 import { TurnAlert } from '../components/player/TurnAlert';
 import { StageHeader } from '../components/shared/StageHeader';
-import { updateTally, updateStatus, updateRider, checkAndSeedIfEmpty } from '../services/dinosaurService';
+import { DINOSAURS } from '../config/dinosaurs';
+import { updateTally, updateRider, checkAndSeedIfEmpty } from '../services/dinosaurService';
 import { checkAndInitializeGlobalState } from '../services/globalStateService';
 
 export const PlayerView = () => {
@@ -38,11 +38,6 @@ export const PlayerView = () => {
     await updateTally(selectedDino.id, selectedDino.tally - lastAdded);
     setLastAdded(0);
   }, [selectedDino, lastAdded]);
-
-  const handleStatusChange = useCallback(async (status) => {
-    if (!selectedDino) return;
-    await updateStatus(selectedDino.id, status);
-  }, [selectedDino]);
 
   const handleRiderChange = useCallback(async (rider) => {
     if (!selectedDino) return;
@@ -91,38 +86,71 @@ export const PlayerView = () => {
 
         {selectedDino && (
           <>
-            <div
-              className="p-4 rounded-lg text-center"
-              style={{ backgroundColor: selectedDino.color }}
-            >
-              <h2 className="text-2xl font-bold drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                {selectedDino.name}
-              </h2>
-            </div>
+            {/* Show rider input first if no rider name entered yet */}
+            {!selectedDino.rider && (
+              <RiderInput
+                value={selectedDino.rider}
+                onChange={handleRiderChange}
+                disabled={false}
+              />
+            )}
 
-            <DistanceInput
-              currentTally={selectedDino.tally}
-              onAdd={handleAddDistance}
-              onUndo={handleUndo}
-              disabled={false}
-            />
+            {/* Only show the rest once rider name is entered */}
+            {selectedDino.rider && (
+              <>
+                {/* Cheatsheet - shows dino stats */}
+                {(() => {
+                  const dinoConfig = DINOSAURS.find(d => d.id === selectedDino.id);
+                  return dinoConfig && (
+                    <div
+                      className="p-3 rounded-lg border-2"
+                      style={{
+                        backgroundColor: 'var(--chult-jungle)',
+                        borderColor: selectedDino.color,
+                      }}
+                    >
+                      <div className="grid grid-cols-3 gap-2 text-center">
+                        <div>
+                          <div className="text-sm" style={{ color: 'var(--chult-sand)' }}>Check DC</div>
+                          <div className="text-2xl font-bold" style={{ color: 'var(--chult-gold)' }}>{dinoConfig.checkDC}</div>
+                        </div>
+                        <div>
+                          <div className="text-sm" style={{ color: 'var(--chult-sand)' }}>Speed</div>
+                          <div className="text-2xl font-bold" style={{ color: 'var(--chult-gold)' }}>{dinoConfig.speed}</div>
+                        </div>
+                        <div>
+                          <div className="text-sm" style={{ color: 'var(--chult-sand)' }}>Con Mod</div>
+                          <div className="text-2xl font-bold" style={{ color: 'var(--chult-gold)' }}>
+                            {dinoConfig.conMod >= 0 ? `+${dinoConfig.conMod}` : dinoConfig.conMod}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
 
-            <StatusToggle
-              currentStatus={selectedDino.status}
-              onChange={handleStatusChange}
-              disabled={false}
-            />
+                <div
+                  className="p-4 rounded-lg text-center"
+                  style={{ backgroundColor: selectedDino.color }}
+                >
+                  <h2 className="text-2xl font-bold drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                    {selectedDino.name}
+                  </h2>
+                </div>
 
-            <RiderInput
-              value={selectedDino.rider}
-              onChange={handleRiderChange}
-              disabled={false}
-            />
+                <DistanceInput
+                  currentTally={selectedDino.tally}
+                  onAdd={handleAddDistance}
+                  onUndo={handleUndo}
+                  disabled={false}
+                />
+              </>
+            )}
           </>
         )}
       </div>
 
-      {selectedDino && (
+      {selectedDino && selectedDino.rider && (
         <TurnAlert
           isYourTurn={currentTurnDino?.id === selectedId}
           dinoName={selectedDino.name}
