@@ -5,18 +5,18 @@ export const TICKER_CATEGORIES = ['news', 'ads', 'race'];
 
 export const TICKER_CONTENT = {
   news: [
+    'WEATHER: Humidity hits all-time highs; priests from Church of Caishenye and the Temple of Savras predict "unprecedented" afternoon downpours.',
     'ALERT: Undead activity reported near River Tiryki. Farshore explorations delayed.',
+    'DEVELOPING: Merchant Prince Jessamine increases tax on imported herbs; alchemists outraged.',
     'LATEST: Ghoul attack in Malar\'s Throat REPELLED! Citizens praise heroes calling themselves "the 52nd Expedition" for preventing casualties and evacuating the neighbourhood in the dead of night. No loss of life reported. The Jungle stays back for yet another day!',
     'CRIME: Investigation continues into uncovered Xanathar hideout in abandoned harbour ward sewers. Scene reported as "complete carnage" with seven alleged thieves incinerated and decapitated. Public advised to avoid sewer grates near docks.',
-    'DEVELOPING: Merchant Prince Jessamine increases tax on imported herbs; alchemists outraged.',
     'NEWS: Merchant Prince Kwayothe denies rumours of "strange rituals" occurring in her private villa.',
-    'WEATHER: Humidity hits all-time highs; priests from Church of Caishenye and the Temple of Savras predict "unprecedented" afternoon downpours.',
     'OFFICIAL: Merchant Prince Kwayothe declares zero tolerance for dangerous new drug known as kublacaine. Consumption, possession, or unauthorised sale of this narcotic is a capital offense. Perpetrators will be sentenced to Executioner\'s Run without appeal. Watch out! See something, say something.',
   ],
   ads: [
     'The Thundering Lizard: Coldest tej in the city! Find us in the Red Bazaar.',
     'Wakanga\'s Wonders: High quality scrolls and potions. Safe for (most) magic users.',
-    'Fruit from the Chult: Fresh mangoes and pineapples, picked this morning!',
+    'Kwayothe\'s Fruit from the Chult: Fresh mangoes and pineapples, picked this morning!',
     'Kaya\'s House of Repose: Why sleep in the dirt? Luxurious beds for weary travellers.',
     'Canoes for Hire: Planning a trip up the Tiryki? See us at the Harbour Ward.',
     'Jewel Market Daily: Rare amethysts and fire opals. Straight from the mines.',
@@ -27,6 +27,7 @@ export const TICKER_CONTENT = {
     'Ekene-Afar\'s Weapons & Armour: Entering the pits? Ekene-Afar\'s heavy shields, tridents and magical weapons are Coliseum-tested. Don\'t just fight - win.',
     'EDITORIAL: Who are "The 52nd Expedition"? Heroes, or a new unlicensed paramilitary threat by the Chamber of Lords-Advisory?',
     'Ifan\'s Menagerie: Why walk when you can ride? Ifan Talro\'s stables offer the finest-bred beasts of burden. Poise. Power. Pedigree.',
+    'The Grey Trader: You didn\'t know you needed it, until you saw it. Yesterday\'s trash, today\'s treasures. Come find your new favorite thing.',
     'Jobal\'s Guides: Venturing beyond the walls? An unlicensed guide is a death sentence. Book a Jobal-certified explorer today at Goldenthrone and ensure you actually come back!',
     'Damien\'s Leatherworks: Custom leatherwork! Get your own dinosaur saddle. 20% off saddles for allosauruses and triceratops!',
     'Public Bathhouses: Wash away the jungle\'s heat. Enjoy the scented steam and cool pools of the Public Bathhouses. A silver for a dip, a gold for the gods.',
